@@ -7,7 +7,7 @@ COPY go.mod  go.mod
 COPY go.sum  go.sum
 
 RUN  go mod download
-
+RUN go env -w GOPROXY=https://goproxy.cn,direct
 COPY cmd/    cmd/
 COPY pkg/    pkg/
 
