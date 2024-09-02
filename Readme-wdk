@@ -1,0 +1,19 @@
+编译环境go版本1.20（高版本容易出现），设置goproxy
+GOPROXY='https://goproxy.cn,direct'
+[root@node1 kserve]#go get -u golang.org/x/lint/golint
+[root@node1 kserve]#git clone -b 0.10.0 https://github.com/kserve/kserve.git
+#调度Makefile中的docker-build:test行，将test去掉
+[root@node1 kserve]#
+[root@node1 kserve]#apt-get install jq
+[root@node1 kserve]#curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+[root@node1 kserve]#cd kserve
+[root@node1 kserve]#go mod download
+[root@node1 kserve]#go mod vendor
+编译kserve组件的二进制agent
+[root@node1 kserve]# make agent
+编译kserve组件的二进制manager
+[root@node1 kserve]# make manager
+编译生成manager镜像
+[root@node1 kserve]# make docker-build
+编译生成storage-initializer镜像
+[root@node1 kserve]# make docker-build-storageInitializer

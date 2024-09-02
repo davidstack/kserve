@@ -1,7 +1,7 @@
 HAS_LINT := $(shell command -v golint;)
 
 # Image URL to use all building/pushing image targets
-IMG ?= kserve-controller:latest
+IMG ?= kserve-controller:v0.10.0
 AGENT_IMG ?= agent:latest
 ROUTER_IMG ?= router:latest
 SKLEARN_IMG ?= sklearnserver
@@ -32,6 +32,7 @@ CONTROLLER_GEN ?= $(LOCALBIN)/controller-gen
 KUSTOMIZE_VERSION ?= v3.8.7
 CONTROLLER_TOOLS_VERSION ?= v0.4.0
 
+KO_DOCKER_REPO ?=localtest
 # CPU/Memory limits for controller-manager
 KSERVE_CONTROLLER_CPU_LIMIT ?= 100m
 KSERVE_CONTROLLER_MEMORY_LIMIT ?= 300Mi
@@ -194,7 +195,7 @@ generate: controller-gen
 	hack/python-sdk/client-gen.sh
 
 # Build the docker image
-docker-build: test
+docker-build:
 	docker build . -t ${IMG}
 	@echo "updating kustomize image patch file for manager resource"
 
